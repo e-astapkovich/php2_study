@@ -15,7 +15,7 @@ class Product {
 
 
 // класс списка товаров. Родительский класс для классов каталога и корзины
-class ProductList {
+abstract class ProductList {
 
 	// содержимое списка
 	public $contents = [];
@@ -60,7 +60,7 @@ class Cart extends ProductList {
 				echo "Товар с id $product_id добавлен в корзину<br>";
 				return;
 			}
-		} 
+		}
 
 		// Если товар в корзине не обнаружен, то добавляем товар, установив количество 1.
 		$this->contents[] = ['id' => $product_id, 'quantity' => 1];
