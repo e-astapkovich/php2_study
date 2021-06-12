@@ -6,28 +6,19 @@ class Product {
 	public $name;
 	public $price;
 
-	public function __construct($id, $name, $price) {
+	public function __construct($id=null, $name="product", $price=0) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->price = $price;
-	}
-
-	public function addToCart($cart) {
-		echo "Товар с id $this->id добавляется в корзину <br>";
-		$cart->addProduct($this->id);
 	}
 }
 
 
 // класс списка товаров. Родительский класс для классов каталога и корзины
-class ProductList {
+abstract class ProductList {
 
 	// содержимое списка
-	public $contents;
-
-	public function __construct() {
-		$this->contents = [];
-	}
+	public $contents = [];
 
 	// вывод содержимого списка
 	public function showContents() {
@@ -58,7 +49,7 @@ class Catalog extends ProductList {
 class Cart extends ProductList {
 
 	// Добавление товара в корзину
-	public function addProduct($product_id) {
+	public function addToCart($product_id) {
 
 		/* Провряем, содержится ли уже в корзине товар с переданным id.
 		* Если да, то увеличиваем количество на 1.
@@ -69,7 +60,7 @@ class Cart extends ProductList {
 				echo "Товар с id $product_id добавлен в корзину<br>";
 				return;
 			}
-		} 
+		}
 
 		// Если товар в корзине не обнаружен, то добавляем товар, установив количество 1.
 		$this->contents[] = ['id' => $product_id, 'quantity' => 1];
@@ -100,17 +91,17 @@ $catalog->showContents();
 $cart->showContents();
 
 // Добавляем товар в корзину
-$catalog->contents[3]->addToCart($cart);
+$cart->addToCart(3);
 
 // Проверяем содержимое каталога и корзины на данном этапе выполнения скрипта
 $catalog->showContents();
 $cart->showContents();
 
 // Добавляем еще товары в корзину.
-$catalog->contents[0]->addToCart($cart);
-$catalog->contents[4]->addToCart($cart);
-$catalog->contents[4]->addToCart($cart);
-$catalog->contents[3]->addToCart($cart);
+$cart->addToCart(0);
+$cart->addToCart(4);
+$cart->addToCart(4);
+$cart->addToCart(3);
 
 // Проверяем содержимое каталога и корзины на данном этапе выполнения скрипта
 $catalog->showContents();
