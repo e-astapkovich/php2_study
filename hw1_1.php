@@ -6,7 +6,7 @@ class Product {
 	public $name;
 	public $price;
 
-	public function __construct($id, $name, $price) {
+	public function __construct($id=null, $name="product", $price=0) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->price = $price;
@@ -23,11 +23,7 @@ class Product {
 class ProductList {
 
 	// содержимое списка
-	public $contents;
-
-	public function __construct() {
-		$this->contents = [];
-	}
+	public $contents = [];
 
 	// вывод содержимого списка
 	public function showContents() {
